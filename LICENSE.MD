@@ -1,4 +1,4 @@
-# Yeet License, No Receipts - Ctrl+C, Ctrl+V, No Regrets aka Chaos & Code License
+# Yeet License, No Receipts - Ctrl+C, Ctrl+V, No Regrets aka Chaos & Code License 
 
 **Copyright (c) 2025 Animesh Roy**
 

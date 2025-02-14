@@ -1,4 +1,4 @@
-# DNS Record Scanner
+# DNS Record Scanner v1.0
 
 DNS Record Scanner is a Go-based tool to scan and analyze SPF, DKIM, and DMARC records for domains. It provides detailed results, warnings for misconfigurations, and a summary of findings. The tool supports scanning a single domain, multiple domains from a file, and saving results to a CSV file.
 
