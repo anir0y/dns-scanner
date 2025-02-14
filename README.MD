@@ -150,5 +150,5 @@ If you encounter any bugs or have suggestions for improvements, please open an i
 
 ## License
 
-This project is licensed under the Stupid Guy writing shitty codes.
+This project is licensed under the [Stupid Guy writing shitty codes.](https://github.com/anir0y/license/blob/main/README.md)
 
