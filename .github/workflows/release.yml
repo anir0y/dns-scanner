@@ -18,9 +18,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20' # Specify your Go version here
+          go-version: '1.23' # Specify your Go version here
 
-      # Step 3: Build binaries for multiple platforms
+      # Step 3: Validate go.mod
+      - name: Validate go.mod
+        run: go mod tidy
+
+      # Step 4: Build binaries for multiple platforms
       - name: Build binaries
         run: |
           mkdir dist
@@ -29,7 +33,7 @@ jobs:
           GOOS=darwin GOARCH=amd64 go build -o dist/dns-scanner-macos-amd64 main.go
           GOOS=darwin GOARCH=arm64 go build -o dist/dns-scanner-macos-arm64 main.go
 
-      # Step 4: Create a GitHub Release and upload binaries
+      # Step 5: Create a GitHub Release
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -41,8 +45,8 @@ jobs:
           draft: false
           prerelease: false
 
-      # Step 5: Upload binaries to the Release
-      - name: Upload binaries
+      # Step 6: Upload binaries to the Release
+      - name: Upload Windows binary
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
