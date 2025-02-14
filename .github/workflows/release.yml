@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*' # Trigger on new tags (e.g., v1.0.0)
 
+permissions:
+  contents: write # Grant write permissions to the GITHUB_TOKEN
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -27,7 +30,7 @@ jobs:
       # Step 4: Build binaries for multiple platforms
       - name: Build binaries
         run: |
-          mkdir dist
+          mkdir -p dist
           GOOS=windows GOARCH=amd64 go build -o dist/dns-scanner-windows-amd64.exe main.go
           GOOS=linux GOARCH=amd64 go build -o dist/dns-scanner-linux-amd64 main.go
           GOOS=darwin GOARCH=amd64 go build -o dist/dns-scanner-macos-amd64 main.go
@@ -38,14 +41,14 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use the default GITHUB_TOKEN
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
 
-      # Step 6: Upload binaries to the Release
+      # Step 6: Upload Windows binary
       - name: Upload Windows binary
         uses: actions/upload-release-asset@v1
         env:
@@ -56,6 +59,7 @@ jobs:
           asset_name: dns-scanner-windows-amd64.exe
           asset_content_type: application/octet-stream
 
+      # Step 7: Upload Linux binary
       - name: Upload Linux binary
         uses: actions/upload-release-asset@v1
         env:
@@ -66,6 +70,7 @@ jobs:
           asset_name: dns-scanner-linux-amd64
           asset_content_type: application/octet-stream
 
+      # Step 8: Upload macOS x64 binary
       - name: Upload macOS x64 binary
         uses: actions/upload-release-asset@v1
         env:
@@ -76,6 +81,7 @@ jobs:
           asset_name: dns-scanner-macos-amd64
           asset_content_type: application/octet-stream
 
+      # Step 9: Upload macOS ARM64 binary
       - name: Upload macOS ARM64 binary
         uses: actions/upload-release-asset@v1
         env:
